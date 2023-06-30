@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<body>
+<div class="box">
+    <div class="container">
+        <div class="top-header">
+            <span>First to Login</span>
+            <header>Login</header>
+            
+        </div>
+
+        <div class="input-field">
+            <input type="text" class="input" placeholder="Username" id="username" required>
+            <i class="bx bx-user"></i>
+        </div>
+        <br>
+        <div class="input-field">
+            <input type="password" class="input" placeholder="Password" id="password" required>
+            <i class="bx bx-lock-alt"></i>
+        </div>
+        <br>
+        <div class="input-field">
+            <Button type="submit" class="submit" id="button"> Log in
+        </div>
+         
+        <div class="bottom">
+            <div class="left">
+                <input type="checkbox" id="check">
+                <label for="check">Remember Me</label>
+                <p>Don't have an account?<a href="signin.html">Sign in</a></p>
+            </div>
+            <div class="right">
+                <label><a href="#">Forgot Password</a></label>
+            </div>
+        </div>
+
+    </div>
+</div>
+<style>
+     
+    body {
+        height: 100vh;
+        background-color: black;
+        background-image: url('https://uploads-ssl.webflow.com/6094741aba31b56efe984fb1/60ae1baac0ebd54a76a891ab_DJI_0068.jpg');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+    }
+    
+    
+ .box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 90vh;
+}
+
+.container {
+    width: 350px;
+    display: flex;
+    flex-direction: column;
+    padding: 0 15px 0 15px;
+}
+
+span {
+    color: #fff;
+    font-size: small;
+    display: flex;
+    justify-content: center;
+    padding: 10px 0 10px 0;
+}
+
+header {
+    color: #fff;
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+    padding: 10px 0 10px 0;
+}
+
+.input-field{
+    display: flex;
+    flex-direction: column;
+}
+
+.input{
+    height: 45px;
+    width: 87%;
+    border: none;
+    outline: none;
+    border-radius: 30px;
+    color: #0f0e0e;
+    padding: 0 0 0 45px;
+    background: rgba(255, 255, 255, 0.1);
+}
+i{
+    position: relative;
+    top: -31px;
+    left: 17px;
+    color: #fff;
+}
+
+::-webkit-input-placeholder{
+    color: #fff;
+
+}
+.submit {
+    border: none;
+    border-radius: 30px;
+    font-size: 15px;
+    height: 45px;
+    outline: none;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.7);
+    cursor: pointer;
+    transition: .3s;
+}
+.submit:hover{
+    box-shadow: 1px 5px 7px 1px rgba(0, 0, 0, 0.2);
+}
+.bottom{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: small;
+    color: #fff;
+    margin-top: 10px;
+}
+.left{
+    display: flex;
+}
+label a{
+    color: #fff;
+    text-decoration: none;
+} 
+</style>
+<script>
+    window.addEventListener('popstate', function () {
+        alert("fuck");
+        // Redirect to a specific page or display a message
+        window.location.href = '/custom-page';
+      });
+    var button=document.getElementById('button')
+    button.addEventListener('click',(req,result)=>{
+        var password = document.getElementById("password").value
+        var username = document.getElementById("username").value
+    
+        if(password.length<=0 || username.length<=0){
+            alert("Password/username cannot be empty")
+            return 
+        }
+
+        fetch('/logged', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ username, password })
+    })
+      .then(function(response) {
+        if (response.status==200) {
+         window.location.href='project.html'
+        } else if(response.status==212) {
+          alert('invalid username/password')
+        }
+      })
+      .catch(function(error) {
+        console.error('Error occurred during form submission:', error);
+      })
+    })
+    function myfunction(){
+        var x =document.getElementById("pass");
+        if(x.type === "password"){
+            x.type ="text"
+        }
+        else{
+            x.type ="password"
+        }
+    }
+
+
+</script>
+</body>
+</html>
